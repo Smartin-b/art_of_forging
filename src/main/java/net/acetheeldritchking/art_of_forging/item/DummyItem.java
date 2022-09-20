@@ -1,4 +1,4 @@
-package net.acetheeldritchking.art_of_forging;
+package net.acetheeldritchking.art_of_forging.item;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
