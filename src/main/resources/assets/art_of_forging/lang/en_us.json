@@ -1,4 +1,7 @@
 {
+	"art_of_forging.effect.puncture.name": "Puncture Name",
+	"art_of_forging.effect.puncture.tooltip": "This does stuff to armor",
+
 	"tetra/schematic/sword/rapier_blade.name": "Rapier blade",
 	"tetra/schematic/sword/rapier_blade.description": "Replace the current sword blade with a rapier, an elegant blade.\n \nMaterial §fhardness§r increases §fdamage§r.",
 	"tetra/schematic/sword/rapier_blade.slot1": "Blade material",

@@ -7,6 +7,7 @@ import net.acetheeldritchking.art_of_forging.ArtOfForging;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,6 +36,8 @@ import se.mickelus.tetra.gui.GuiModuleOffsets;
 import se.mickelus.tetra.items.TetraItemGroup;
 import se.mickelus.tetra.items.modular.IModularItem;
 import se.mickelus.tetra.items.modular.ItemModularHandheld;
+import se.mickelus.tetra.module.ItemModule;
+import se.mickelus.tetra.module.ItemUpgradeRegistry;
 import se.mickelus.tetra.module.SchematicRegistry;
 import se.mickelus.tetra.module.data.ToolData;
 import se.mickelus.tetra.module.schematic.RemoveSchematic;
@@ -64,6 +67,44 @@ public class ModularItemTriple extends ItemModularHandheld {
 
     @ObjectHolder(ArtOfForging.MOD_ID + ":" + identifier)
     public static se.mickelus.tetra.items.modular.impl.ModularDoubleHeadedItem instance;
+
+    @Override
+    public String[] getMajorModuleKeys() {
+        return this.majorModuleKeys;
+    }
+
+    @Override
+    public String[] getMinorModuleKeys() {
+        return this.minorModuleKeys;
+    }
+
+    @Override
+    public String[] getRequiredModules() {
+        return this.requiredModules;
+    }
+
+    @Override
+    public Collection<ItemModule> getAllModules(ItemStack stack) {
+        CompoundTag stackTag = stack.getTag();
+
+        if (stackTag != null) {
+            ItemModule singleModule = getModuleFromSlot(stack,singleHead);
+            if(singleModule!=null && singleModule.getKey().equals("single/spearhead")){
+                return Stream.concat(Arrays.stream(new String[]{singleHead,handleKey}), Arrays.stream(getMinorModuleKeys()))
+                        .map(stackTag::getString)
+                        .map(ItemUpgradeRegistry.instance::getModule)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList());
+            }
+            return Stream.concat(Arrays.stream(getMajorModuleKeys()), Arrays.stream(getMinorModuleKeys()))
+                    .map(stackTag::getString)
+                    .map(ItemUpgradeRegistry.instance::getModule)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+        }
+
+        return Collections.emptyList();
+    }
 
     public ModularItemTriple() {
         super(new Item.Properties().stacksTo(1).tab(TetraItemGroup.instance).fireResistant());

@@ -18,7 +18,7 @@
 			},
 			"effects": {
 				"stun": [ 20, 2 ],
-				"crushing": 9,
+				"art_of_forging:puncture": 3,
 				"shieldbreaker": 1
 			},
 			"aspects": {

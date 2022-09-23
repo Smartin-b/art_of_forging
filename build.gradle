@@ -186,6 +186,7 @@ dependencies {
 
     runtimeOnly(fg.deobf("curse.maven:nbttool-451553:3748971"))
     runtimeOnly(fg.deobf("curse.maven:Jei-238222:3940240"))
+    runtimeOnly(fg.deobf("curse.maven:Jei-225738:3820503"))
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
